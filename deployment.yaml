@@ -1,0 +1,28 @@
+apiVersion : apps/v1
+kind: Deployment
+
+metadata:
+  name: patientservice-deployment
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      server: patientservice
+
+
+  template:
+    metadata:
+      labels:
+        server: patientservice
+    spec:
+      containers:
+        - name: patientservice
+          image: patientservice:v1
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 4000
+          env:
+            - name: NODE_ENV
+              value: production
